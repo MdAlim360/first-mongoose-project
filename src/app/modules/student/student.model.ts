@@ -29,18 +29,29 @@ const localGuardianSchema = new Schema<LocalGuardian>({
 const studentSchema = new Schema<Student>({
     id: { type: String },
     name: userNameSchema,
-    gender: ["male", "female"], // * this is mongoose enum type//
+    gender: {
+        type: String,
+        enum: ["male", "female"],
+        required: true,
+    }, // * this is mongoose enum type//
     dateOfBirth: String,
     email: { type: String, required: true },
     contactNo: { type: String, required: true },
     emergencyContactNo: { type: String, required: true },
-    bloodGroup: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+    bloodGroup: {
+        type: String,
+        enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+    },
     presentAddress: { type: String, required: true },
     permanentAddress: { type: String, required: true },
     guardian: guardianSchema,
     localGuardian: localGuardianSchema,
     profileImg: String,
-    isActive: ["active", "blocked"]
+    isActive: {
+        type: String,
+        enum: ["active", "blocked"],
+        default: "active",
+    }
 
 });
 
